@@ -92,4 +92,36 @@ class TradeEngineDaveApplicationTests {
 		engine.processOrders();
 		assertTrue("Buy order should be empty", engine.getBuyOrders().peek() == null);
 	}
+
+	@Test
+	public void test_limit_order_match() {
+		/*
+		Id   Side    Time   Qty   Price   Qty    Time   Side
+		---+------+-------+-----+-------+-----+-------+------
+
+		#1                        20.40   100   09:01   SELL
+		#2                        19.30   100   09:05   SELL
+		#3   BUY    09:08   200   20.30
+		*/
+		engine = new PriceTimeTradeEngine(new StandardMatchingStrategy());
+
+
+		final Order SELL_ORDER_1 = new Order(new BigDecimal("20.40"), 100, OrderType.LIMIT);
+
+		final Order SELL_ORDER_2 = new Order(new BigDecimal("19.30"), 100, OrderType.LIMIT);
+
+		final Order BUY_ORDER_1 = new Order(new BigDecimal("20.30"), 100, OrderType.LIMIT);
+
+
+		engine.getBuyOrders().put(BUY_ORDER_1);
+		engine.getSellOrders().put(SELL_ORDER_1);
+		engine.processOrders();
+		assertEquals("SELL_ORDER_1 should be in the sell orders", SELL_ORDER_1.getId(), engine.getSellOrders().peek().getId());
+		assertEquals("BUY_ORDER_1 should be in the buy orders", BUY_ORDER_1.getId(), engine.getBuyOrders().peek().getId());
+
+		engine.getSellOrders().put(SELL_ORDER_2);
+		engine.processOrders();
+		assertEquals("SELL_ORDER_1 should be in the sell orders", SELL_ORDER_1.getId(), engine.getSellOrders().peek().getId());
+		assertTrue("Buy order should be empty", engine.getBuyOrders().peek() == null);
+	}
 }

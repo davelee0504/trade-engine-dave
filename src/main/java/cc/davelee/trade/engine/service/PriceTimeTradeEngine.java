@@ -46,6 +46,7 @@ public class PriceTimeTradeEngine extends TradeEngine {
         log.info("Start processing order...");
 
         Order buyOrder, sellOrder;
+
         try {
             buyOrder = buyOrders.take();
             log.debug("BUY order taken " + buyOrder);
@@ -54,7 +55,7 @@ public class PriceTimeTradeEngine extends TradeEngine {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
+        //proceed only if the buy order and the sell order not null. Otherwise blocked
         MatchResult result = matchingStrategy.match(sellOrder, buyOrder);
         log.info(result.toString());
 
