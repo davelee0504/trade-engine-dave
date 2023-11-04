@@ -10,14 +10,8 @@ import org.springframework.stereotype.Component;
 public class FullMatchingStrategy implements OrderMatchingStrategy {
     @Override
     public MatchResult match(Order sellOrder, Order buyOrder) {
-        // in case there is null
-        if (sellOrder == null || buyOrder == null)
+        if (!checkOrder(sellOrder, buyOrder))
             return MatchResult.NO_MATCHED_RESULT;
-
-        // buy price < sell price
-        if (buyOrder.getPrice().compareTo(sellOrder.getPrice()) < 0) {
-            return MatchResult.NO_MATCHED_RESULT;
-        }
 
         // we only want full match in this strategy here
         if (buyOrder.getQuantity().compareTo(sellOrder.getQuantity()) != 0) {
