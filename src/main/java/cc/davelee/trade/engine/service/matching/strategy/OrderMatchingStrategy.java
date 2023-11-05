@@ -20,6 +20,10 @@ public interface OrderMatchingStrategy {
             return false;
         }
 
+        if (OrderType.LIMIT.equals(sellOrder.getType()) && buyOrder.getPrice().compareTo(sellOrder.getPrice()) < 0) {
+            return false;
+        }
+
         return isOk;
     }
 }
