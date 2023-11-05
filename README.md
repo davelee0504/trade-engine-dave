@@ -1,7 +1,7 @@
 # Simple Trade Engine
- Trade Engine Coding Challenge xigolorez
+Trade Engine Coding Challenge xigolorez
 
-# Trade Engine Structure 
+# Trade Engine Structure
 - RESTful API to receive orders
 - Sell/Buy Orders kept by PriorityBlockingQueue
 - Matching Strategy
@@ -19,9 +19,10 @@ The buy-side orders are sorted by price descending order and timestamp in the as
 - POST /order/buy
 - POST /order/sell
 
+You can use Postman by import the collection(Trade Engine.postman_collection.json)
+
+Example of Order JSON
 ```json
-//Example of Order JSON
-        
 {
     "price": 10.0,
     "quantity": 30,
@@ -29,4 +30,3 @@ The buy-side orders are sorted by price descending order and timestamp in the as
 }
 
 ```
-
