@@ -7,47 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-@Service
-public class OrderService {
-
-    private final TradeEngine tradeEngine;
-
-    public void deleteOrder() {
-
-    }
-
-    @Autowired
-    public OrderService(TradeEngine tradeEngine) {
-        this.tradeEngine = tradeEngine;
-    }
+public interface OrderService {
 
     // submit order to trade engine
-    public void submitBuyOrder(OrderDto orderDto) {
-        Order order = new Order(orderDto.getPrice(), orderDto.getQuantity(), orderDto.getType(), orderDto.getTime(), false);
-        tradeEngine.submitBuyOrder(order);
-    }
+    OrderDto submitBuyOrder(OrderDto orderDto);
 
-    public void submitSellOrder(OrderDto orderDto) {
-        Order order = new Order(orderDto.getPrice(), orderDto.getQuantity(), orderDto.getType(), orderDto.getTime(), false);
-        tradeEngine.submitSellOrder(order);
-    }
+    OrderDto submitSellOrder(OrderDto orderDto);
 
-    public OrderDto getOrder(String id) {
-       return null;
-    }
+    Optional<OrderDto> getOrder(String id);
 
-    public OrdersDto getAllOrders() {
-        OrdersDto result = new OrdersDto();
-        List<OrderDto> sellOrders = tradeEngine.getSellOrders().stream()
-                .map(o -> new OrderDto(o.getId(), o.getPrice(), o.getQuantity(), o.getType(), o.getTime()))
-                .toList();
-        List<OrderDto> buyOrders = tradeEngine.getBuyOrders().stream()
-                .map(o -> new OrderDto(o.getId(), o.getPrice(), o.getQuantity(), o.getType(), o.getTime()))
-                .toList();
-        result.setSellOrders(sellOrders);
-        result.setBuyOrders(buyOrders);
-
-        return result;
-    }
+    OrdersDto getAllOrders();
 }

@@ -1,7 +1,6 @@
 package cc.davelee.trade.engine.dto;
 
 import cc.davelee.trade.engine.entity.OrderType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

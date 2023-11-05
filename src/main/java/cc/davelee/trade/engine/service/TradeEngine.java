@@ -4,7 +4,6 @@ import cc.davelee.trade.engine.entity.Order;
 import cc.davelee.trade.engine.service.matching.strategy.OrderMatchingStrategy;
 import lombok.Getter;
 
-import java.util.List;
 import java.util.concurrent.PriorityBlockingQueue;
 
 public abstract class TradeEngine {
@@ -23,16 +22,12 @@ public abstract class TradeEngine {
         this.matchingStrategy = matchingStrategy;
     }
 
-    public void submitBuyOrder(List<Order> orders) {
-        buyOrders.addAll(orders);
+    public boolean submitBuyOrder(Order order) {
+        return buyOrders.offer(order);
     }
 
-    public void submitBuyOrder(Order order) {
-        buyOrders.offer(order);
-    }
-
-    public void submitSellOrder(Order order) {
-        sellOrders.offer(order);
+    public boolean submitSellOrder(Order order) {
+        return sellOrders.offer(order);
     }
 
     abstract public void processOrders();
