@@ -1,6 +1,5 @@
 package cc.davelee.trade.engine.dto;
 
-import cc.davelee.trade.engine.entity.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
