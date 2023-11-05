@@ -30,3 +30,8 @@ Example of Order JSON
 }
 
 ```
+
+Command for test rate limiting
+```shell
+ab -n 100 -c 100 -T 'application/json' -p /Users/davelee/IdeaProjects/trade-engine-dave/Order.json http://localhost:8080/order/buy
+```
